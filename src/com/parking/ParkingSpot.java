@@ -2,16 +2,46 @@ package com.parking;
 
 import java.sql.Timestamp;
 
+/**
+ * <h2>ParkingSpot</h2>
+ * Represents the core domain model (POJO / Entity class) encapsulating
+ * the structural data state of an individual parking space row configuration.
+ */
 public class ParkingSpot {
+    
+    /** System unique reference ID identifier key for the spot. */
     private int spotId;
+    
+    /** Active license record value parked inside slot; null if vacant. */
     private String vehicleNumber;
+    
+    /** Explicit space categorization restriction parameter configuration (e.g., CAR/BIKE). */
     private String vehicleType;
+    
+    /** Availability state tracker flag. */
     private boolean isAvailable;
+    
+    /** Timestamp tracker indicating exact record check-in time. */
     private Timestamp allocatedTime;
-    private double hourlyRate; // Added field
+    
+    /** Financial variable specifying cost parameters tracked per hour metrics. */
+    private double hourlyRate;
 
+    /**
+     * Default no-arguments constructor initializing basic structures.
+     */
     public ParkingSpot() {}
 
+    /**
+     * Full arguments constructor configuring complete spatial elements fields.
+     *
+     * @param spotId        Unique system lookup key index.
+     * @param vehicleNumber License text identifying vehicle state.
+     * @param vehicleType   Classification parameter mapping constraints.
+     * @param isAvailable   Boolean availability flag status tracker.
+     * @param allocatedTime Timestamp record setting exact transaction check-in point.
+     * @param hourlyRate    Financial rate value cost metric.
+     */
     public ParkingSpot(int spotId, String vehicleNumber, String vehicleType, boolean isAvailable, Timestamp allocatedTime, double hourlyRate) {
         this.spotId = spotId;
         this.vehicleNumber = vehicleNumber;
@@ -39,10 +69,20 @@ public class ParkingSpot {
     public double getHourlyRate() { return hourlyRate; }
     public void setHourlyRate(double hourlyRate) { this.hourlyRate = hourlyRate; }
 
+    /**
+     * Generates a tabular string presentation configuration row mapping elements perfectly.
+     * Uses uniform sizing buffers to keep text boundaries aligned within console dashboard limits.
+     *
+     * @return dynamic grid visual presentation layout representation block string.
+     */
     @Override
     public String toString() {
-        return String.format("| Spot ID: %-5d | Type: %-6s | Available: %-5b | Rate/Hr: Rs.%-6.2f | Vehicle: %-10s | Time: %-19s |", 
-                spotId, vehicleType, isAvailable, hourlyRate, (vehicleNumber == null ? "N/A" : vehicleNumber), 
+        return String.format("| Spot ID: %-4d | Type: %-5s | Available: %-5b | Rate/Hr: Rs.%-6.2f | Vehicle: %-15s | Time: %-21s |", 
+                spotId, 
+                vehicleType, 
+                isAvailable, 
+                hourlyRate, 
+                (vehicleNumber == null ? "N/A" : vehicleNumber), 
                 (allocatedTime == null ? "N/A" : allocatedTime.toString()));
     }
 }
